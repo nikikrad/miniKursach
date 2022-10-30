@@ -9,7 +9,8 @@ public class ComputerEntity {
     public String power_unit;
     public String system_unit;
     public String video_card;
-    public ComputerEntity(int id, String ram, String hdd, String ssd, String matherboard, String power_unit, String system_unit, String video_card) {
+    public Double price;
+    public ComputerEntity(int id, String ram, String hdd, String ssd, String matherboard, String power_unit, String system_unit, String video_card, Double price) {
         this.id = id;
         this.ram = ram;
         this.hdd = hdd;
@@ -18,6 +19,7 @@ public class ComputerEntity {
         this.power_unit = power_unit;
         this.system_unit = system_unit;
         this.video_card = video_card;
+        this.price = price;
     }
 
     public ComputerEntity() {
