@@ -1,6 +1,5 @@
 package com.computer.miniKursach.bll.abstractions.services;
 
-import com.computer.miniKursach.bll.entities.ComputerEntity;
 import com.computer.miniKursach.bll.entities.DevicesEntity;
 
 import java.sql.SQLException;
