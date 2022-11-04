@@ -14,12 +14,12 @@ public class DevicesRepository implements IDevicesRepository {
 
     @Override
     public void create(DevicesEntity entity) throws SQLException {
-        DBConnection.statement.executeUpdate(String.format("INSERT INTO accessories (name_device, group, price) VALUES ('%s', '%s', '%s') ", entity.name_device, entity.group,entity.price));
+        DBConnection.statement.executeUpdate(String.format("INSERT INTO accessories (name_device, groupy, price) VALUES ( '%s', '%s', '%s') ", entity.name_device, entity.groupy, entity.price));//, group, price \\ '%s', '%s', \\, entity.group,entity.price
     }
 
     @Override
     public void update(DevicesEntity entity) throws SQLException {
-        DBConnection.statement.executeUpdate(String.format("UPDATE accessories set name_device = '%s', group = '%s',price = '%s' where id = '%s'", entity.name_device, entity.group,entity.price, entity.id));
+        DBConnection.statement.executeUpdate(String.format("UPDATE accessories set name_device = '%s', groupy = '%s',price = '%s' where id = '%s'", entity.name_device, entity.groupy,entity.price, entity.id));//, entity.group,entity.price, entity.id
     }
 
     @Override
@@ -36,7 +36,7 @@ public class DevicesRepository implements IDevicesRepository {
             var devices = new DevicesEntity();
             devices.id = resultSet.getInt("id");
             devices.name_device = resultSet.getString("name_device");
-            devices.group = resultSet.getString("group");
+            devices.groupy = resultSet.getString("groupy");
             devices.price = resultSet.getDouble("price");
             result.add(devices);
         }

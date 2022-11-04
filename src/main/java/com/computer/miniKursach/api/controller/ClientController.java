@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.ResponseEntity.internalServerError;
 
 @RestController
-@RequestMapping("api/basket")
+@RequestMapping("api/client")
 public class ClientController {
 
     private IClientService clientService;
@@ -17,7 +17,6 @@ public class ClientController {
     public ClientController(IClientService clientService) {
         this.clientService = clientService;
     }
-
     @GetMapping
     public ResponseEntity getClient()
     {
