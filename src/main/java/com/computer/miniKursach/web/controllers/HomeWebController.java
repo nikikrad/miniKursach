@@ -1,4 +1,4 @@
-package com.computer.miniKursach.home_controller;
+package com.computer.miniKursach.web.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

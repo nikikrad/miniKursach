@@ -1,13 +1,19 @@
 package com.computer.miniKursach.bll.abstractions.services;
 
 import com.computer.miniKursach.bll.entities.ComputerEntity;
+import com.computer.miniKursach.web.models.computer.PostComputerRequest;
+import com.computer.miniKursach.web.models.computer.PutComputerRequest;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 public interface IComputerService {
-    public void create(ComputerEntity entity) throws SQLException;
-    public void update(ComputerEntity entity) throws SQLException;
-    public void delete(int id) throws SQLException;
-    public ArrayList<ComputerEntity> getAll() throws SQLException;
+    List<ComputerEntity> getComputer();
+
+    void create(PostComputerRequest createComputer);
+
+    void update(PutComputerRequest entity) throws SQLException;
+
+    void delete(int id) throws SQLException;
+
 }

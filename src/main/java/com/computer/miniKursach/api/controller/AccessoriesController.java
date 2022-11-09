@@ -1,10 +1,11 @@
 package com.computer.miniKursach.api.controller;
 
-import com.computer.miniKursach.bll.abstractions.services.IComputerService;
-import com.computer.miniKursach.bll.abstractions.services.IDevicesService;
-import com.computer.miniKursach.bll.entities.ComputerEntity;
-import com.computer.miniKursach.bll.entities.DevicesEntity;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.computer.miniKursach.bll.entities.AccessoriesEntity;
+import com.computer.miniKursach.bll.services.AccessoriesService;
+import com.computer.miniKursach.dal.repositories.AccessoriesRepository;
+import com.computer.miniKursach.web.models.accessories.PostAccessoriesRequest;
+import com.computer.miniKursach.web.models.accessories.PutAccessoriesRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,21 +13,21 @@ import static org.springframework.http.ResponseEntity.internalServerError;
 
 @RestController
 @RequestMapping("api/devices")
-public class DevicesController {
+public class AccessoriesController {
 
-
-    private IDevicesService devicesService;
-
-    public DevicesController(IDevicesService devicesService) {
-        this.devicesService = devicesService;
-    }
+    @Autowired
+    public AccessoriesService accessoriesService;
+    @Autowired
+    public AccessoriesRepository accessoriesRepository;
 
     @GetMapping
     public ResponseEntity getDevices()
     {
         try{
-            var resStr = new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(devicesService.getAll());
-            return ResponseEntity.ok(resStr);
+            var accessories = accessoriesRepository.findAll();
+
+//            var resStr = new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(devicesService.getAll());
+            return ResponseEntity.ok(accessories);
         }
         catch (Exception e)
         {
@@ -35,10 +36,10 @@ public class DevicesController {
     }
 
     @PostMapping
-    public ResponseEntity postDevices(@RequestBody DevicesEntity entity)
+    public ResponseEntity postDevices(@RequestBody PostAccessoriesRequest entity)
     {
         try{
-            devicesService.create(entity);
+            accessoriesService.create(entity);
             return ResponseEntity.ok().body("Все ок!");
         }
         catch (Exception e)
@@ -48,10 +49,10 @@ public class DevicesController {
     }
 
     @PutMapping
-    public ResponseEntity putDevices(@RequestBody DevicesEntity entity)
+    public ResponseEntity putDevices(@RequestBody PutAccessoriesRequest entity)
     {
         try{
-            devicesService.update(entity);
+            accessoriesService.update(entity);
             return ResponseEntity.ok().body("Все ок!");
         }
         catch (Exception e)
@@ -64,7 +65,7 @@ public class DevicesController {
     public ResponseEntity deleteDevices(@RequestParam int id)
     {
         try{
-            devicesService.delete(id);
+            accessoriesService.delete(id);
             return ResponseEntity.ok().body("Все ок!");
         }
         catch (Exception e)

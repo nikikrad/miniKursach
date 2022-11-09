@@ -7,17 +7,23 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Getter
 @Setter
 @Entity
-@Table(name = "basket")
-public class BasketEntity {
+@Table(name = "accessories")
+public class AccessoriesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Column(name = "total_price")
-    public Double total_price;
+
+    @Column(name = "name_device")
+    private String name_device;
+    @Column(name = "groupy")
+    private String groupy;
+    @Column(name = "price")
+    private double price;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -25,13 +31,7 @@ public class BasketEntity {
             joinColumns = { @JoinColumn(name = "accessories_id") },
             inverseJoinColumns = { @JoinColumn(name = "basket_id") }
     )
-    private List<AccessoriesEntity> accessories = new ArrayList<>();
+    private List<BasketEntity> basket = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "computer_has_basket",
-            joinColumns = { @JoinColumn(name = "computer_id") },
-            inverseJoinColumns = { @JoinColumn(name = "basket_id") }
-    )
-    private List<ComputerEntity> computers = new ArrayList<>();
+
 }
