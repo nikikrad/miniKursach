@@ -1,21 +1,18 @@
 package com.computer.miniKursach.bll.services;
 
-import com.computer.miniKursach.bll.abstractions.repositories.IComputerRepository;
 import com.computer.miniKursach.bll.abstractions.services.IComputerService;
-import com.computer.miniKursach.bll.entities.BasketEntity;
-import com.computer.miniKursach.bll.entities.ClientEntity;
-import com.computer.miniKursach.bll.entities.ComputerEntity;
-import com.computer.miniKursach.dal.repositories.ComputerRepository;
+import com.computer.miniKursach.bll.models.computer_service.GetComputer;
+import com.computer.miniKursach.dal.entities.ComputerEntity;
+import com.computer.miniKursach.bll.repositories.ComputerRepository;
 import com.computer.miniKursach.web.models.computer.PostComputerRequest;
 import com.computer.miniKursach.web.models.computer.PutComputerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ComputerService implements IComputerService {
@@ -25,9 +22,24 @@ public class ComputerService implements IComputerService {
 
 
     @Override
-    public List<ComputerEntity> getComputer() {
+    public ArrayList<GetComputer> getComputer() {
         var computerList = computerRepository.findAll();
-        return computerList;
+        var resultList = new ArrayList<GetComputer>();
+        for (var computer :
+                computerList) {
+            var newComputer = new GetComputer();
+            newComputer.setId(computer.getId());
+            newComputer.setHdd(computer.getHdd());
+            newComputer.setMatherboard(computer.getMatherboard());
+            newComputer.setRam(computer.getRam());
+            newComputer.setSsd(computer.getSsd());
+            newComputer.setPower_unit(computer.getPower_unit());
+            newComputer.setVideo_card(computer.getVideo_card());
+            newComputer.setSystem_unit(computer.getSystem_unit());
+            newComputer.setPrice(computer.getPrice());
+            resultList.add(newComputer);
+        }
+        return resultList;
     }
 
     @Override
@@ -61,9 +73,7 @@ public class ComputerService implements IComputerService {
 
     @Override
     public void delete(int id) throws SQLException {
-        var computer = computerRepository.findById(id);
-        if (!computer.isEmpty())
-            computerRepository.delete(computer.get());
+        computerRepository.deleteById(id);
 
     }
 //

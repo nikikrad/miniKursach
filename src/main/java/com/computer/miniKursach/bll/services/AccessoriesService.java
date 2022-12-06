@@ -1,16 +1,16 @@
 package com.computer.miniKursach.bll.services;
 
 import com.computer.miniKursach.bll.abstractions.services.IAccessoriesService;
-import com.computer.miniKursach.bll.entities.AccessoriesEntity;
-import com.computer.miniKursach.bll.entities.ComputerEntity;
-import com.computer.miniKursach.dal.repositories.AccessoriesRepository;
+import com.computer.miniKursach.bll.models.accessories_service.GetAccessories;
+import com.computer.miniKursach.dal.entities.AccessoriesEntity;
+import com.computer.miniKursach.bll.repositories.AccessoriesRepository;
 import com.computer.miniKursach.web.models.accessories.PostAccessoriesRequest;
 import com.computer.miniKursach.web.models.accessories.PutAccessoriesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 
 @Service
 public class AccessoriesService implements IAccessoriesService {
@@ -19,9 +19,19 @@ public class AccessoriesService implements IAccessoriesService {
     public AccessoriesRepository accessoriesRepository;
 
     @Override
-    public List<AccessoriesEntity> getAccessories() {
+    public ArrayList<GetAccessories> getAccessories() {
         var accessoriesList = accessoriesRepository.findAll();
-        return accessoriesList;
+        var resultList = new ArrayList<GetAccessories>();
+        for (var accessory :
+                accessoriesList) {
+            var newAccessory = new GetAccessories();
+            newAccessory.setId(accessory.getId());
+            newAccessory.setName_device(accessory.getName_device());
+            newAccessory.setGroupy(accessory.getGroupy());
+            newAccessory.setPrice(accessory.getPrice());
+            resultList.add(newAccessory);
+        }
+        return resultList;
     }
 
     @Override
@@ -45,8 +55,6 @@ public class AccessoriesService implements IAccessoriesService {
 
     @Override
     public void delete(int id) throws SQLException {
-        var accessories = accessoriesRepository.findById(id);
-        if (!accessories.isEmpty())
-            accessoriesRepository.delete(accessories.get());
+        accessoriesRepository.deleteById(id);
     }
 }

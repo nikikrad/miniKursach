@@ -1,10 +1,10 @@
 package com.computer.miniKursach.bll.services;
 
 import com.computer.miniKursach.bll.abstractions.services.IClientService;
-import com.computer.miniKursach.bll.entities.BasketEntity;
-import com.computer.miniKursach.bll.entities.ClientEntity;
-import com.computer.miniKursach.dal.repositories.BasketRepository;
-import com.computer.miniKursach.dal.repositories.ClientRepository;
+import com.computer.miniKursach.dal.entities.BasketEntity;
+import com.computer.miniKursach.dal.entities.ClientEntity;
+import com.computer.miniKursach.bll.repositories.BasketRepository;
+import com.computer.miniKursach.bll.repositories.ClientRepository;
 import com.computer.miniKursach.web.models.client.PostClientRequest;
 import com.computer.miniKursach.web.models.client.PutClientRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +37,9 @@ public class ClientService implements IClientService {
         var clientEntity = new ClientEntity();
         clientEntity.setName(createClient.getName());
         clientEntity.setPhone_number(createClient.getPhone_number());
+
         var basket = new BasketEntity();
-        basket.setTotal_price(0.0);
+        basket.setTotal_price(createClient.getPrice());
         basketRepository.save(basket);
         clientEntity.setBasket(basket);
 //        clientEntity.setBasket(createClient.getBasket().);
@@ -75,6 +76,7 @@ public class ClientService implements IClientService {
     @Override
     public void delete(int id) throws SQLException {
         clientRepository.deleteById(id);
+        basketRepository.deleteById(id);
     }
 //
 //    @Override

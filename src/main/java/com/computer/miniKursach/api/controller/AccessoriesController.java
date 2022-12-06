@@ -1,10 +1,11 @@
 package com.computer.miniKursach.api.controller;
 
-import com.computer.miniKursach.bll.entities.AccessoriesEntity;
 import com.computer.miniKursach.bll.services.AccessoriesService;
-import com.computer.miniKursach.dal.repositories.AccessoriesRepository;
+import com.computer.miniKursach.bll.repositories.AccessoriesRepository;
+import com.computer.miniKursach.web.models.accessories.DeleteAccessoriesRequest;
 import com.computer.miniKursach.web.models.accessories.PostAccessoriesRequest;
 import com.computer.miniKursach.web.models.accessories.PutAccessoriesRequest;
+import com.computer.miniKursach.web.models.computer.DeleteComputerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -62,10 +63,10 @@ public class AccessoriesController {
     }
 
     @DeleteMapping
-    public ResponseEntity deleteDevices(@RequestParam int id)
+    public ResponseEntity deleteDevices(@RequestBody DeleteAccessoriesRequest id)
     {
         try{
-            accessoriesService.delete(id);
+            accessoriesService.delete(id.getId());
             return ResponseEntity.ok().body("Все ок!");
         }
         catch (Exception e)

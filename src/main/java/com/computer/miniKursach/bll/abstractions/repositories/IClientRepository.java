@@ -1,7 +1,6 @@
 package com.computer.miniKursach.bll.abstractions.repositories;
 
-import com.computer.miniKursach.bll.entities.ClientEntity;
-import com.computer.miniKursach.bll.entities.ComputerEntity;
+import com.computer.miniKursach.dal.entities.ClientEntity;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

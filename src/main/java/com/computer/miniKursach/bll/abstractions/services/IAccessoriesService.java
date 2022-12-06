@@ -1,17 +1,14 @@
 package com.computer.miniKursach.bll.abstractions.services;
 
-import com.computer.miniKursach.bll.entities.AccessoriesEntity;
-import com.computer.miniKursach.bll.entities.ClientEntity;
+import com.computer.miniKursach.bll.models.accessories_service.GetAccessories;
 import com.computer.miniKursach.web.models.accessories.PostAccessoriesRequest;
 import com.computer.miniKursach.web.models.accessories.PutAccessoriesRequest;
-import com.computer.miniKursach.web.models.client.PostClientRequest;
-import com.computer.miniKursach.web.models.client.PutClientRequest;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 
 public interface IAccessoriesService {
-    List<AccessoriesEntity> getAccessories();
+    ArrayList<GetAccessories> getAccessories();
     void create(PostAccessoriesRequest createClient);
     void update(PutAccessoriesRequest entity) throws SQLException;
     void delete(int id) throws SQLException;

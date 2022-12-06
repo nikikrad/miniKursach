@@ -1,9 +1,10 @@
 package com.computer.miniKursach.api.controller;
 
-import com.computer.miniKursach.bll.abstractions.models.client_service.GetClient;
+import com.computer.miniKursach.bll.models.client_service.GetClient;
 import com.computer.miniKursach.bll.abstractions.services.IClientService;
-import com.computer.miniKursach.bll.entities.ClientEntity;
-import com.computer.miniKursach.dal.repositories.ClientRepository;
+import com.computer.miniKursach.dal.entities.ClientEntity;
+import com.computer.miniKursach.bll.repositories.ClientRepository;
+import com.computer.miniKursach.web.models.client.DeleteClientRequest;
 import com.computer.miniKursach.web.models.client.PostClientRequest;
 import com.computer.miniKursach.web.models.client.PutClientRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import static org.springframework.http.ResponseEntity.internalServerError;
 
 @Controller
 public class ClientController {
-
     @Autowired
     public ClientRepository clientRepository;
 
@@ -28,9 +28,6 @@ public class ClientController {
     @GetMapping("/api/client")
     public ResponseEntity getClient() {
         try {
-
-//            var resStr = new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(clientRepository.getClient());
-//            System.out.println(resStr);
             var clients = clientRepository.findAll();
             var clients2 = new ArrayList<>();
             for (ClientEntity client : clients) {
@@ -46,15 +43,6 @@ public class ClientController {
     public ResponseEntity addClient(@RequestBody PostClientRequest client) {
         try {
             clientService.create(client);
-//            var clientModel = new CreateClient();
-//            clientModel.setName(client.name);
-//            clientModel.setPhone_number(client.phone_number);
-//
-//            var basketModel = new BasketModelForPostClientRequest();
-//            basketModel.id = (client.basket.id);
-//            clientModel.setBasket(basketModel);
-//
-//            clientService.create(clientModel);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception ex) {
             return ResponseEntity.status(500).build();
@@ -72,11 +60,11 @@ public class ClientController {
     }
 
     @DeleteMapping("/api/client")
-    public ResponseEntity deleteClient(@RequestParam int id) {
-        try {
-            clientService.delete(id);
+    public ResponseEntity deleteClient(@RequestBody DeleteClientRequest id) {
+        try{
+            clientService.delete(id.getId());
             return ResponseEntity.ok().body("Все ок!");
-        } catch (Exception e) {
+        }catch (Exception e){
             return internalServerError().body("Some problem with server!");
         }
     }

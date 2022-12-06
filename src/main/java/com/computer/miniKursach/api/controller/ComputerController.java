@@ -1,21 +1,15 @@
 package com.computer.miniKursach.api.controller;
 
-import com.computer.miniKursach.bll.abstractions.models.client_service.GetClient;
-import com.computer.miniKursach.bll.abstractions.services.IClientService;
 import com.computer.miniKursach.bll.abstractions.services.IComputerService;
-import com.computer.miniKursach.bll.entities.ClientEntity;
-import com.computer.miniKursach.bll.entities.ComputerEntity;
-import com.computer.miniKursach.dal.repositories.ClientRepository;
-import com.computer.miniKursach.dal.repositories.ComputerRepository;
-import com.computer.miniKursach.web.models.DeleteRequest;
+import com.computer.miniKursach.bll.repositories.ComputerRepository;
+import com.computer.miniKursach.web.models.client.DeleteClientRequest;
+import com.computer.miniKursach.web.models.computer.DeleteComputerRequest;
 import com.computer.miniKursach.web.models.computer.PostComputerRequest;
 import com.computer.miniKursach.web.models.computer.PutComputerRequest;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 
 import static org.springframework.http.ResponseEntity.internalServerError;
 
@@ -29,30 +23,24 @@ public class ComputerController {
     @Autowired
     public IComputerService computerService;
 
-
-//
-//    private IComputerService computerService;
-//
-//    public ComputerController(IComputerService computerService) {
-//        this.computerService = computerService;
-//    }
-//
     @GetMapping
-    public ResponseEntity getComputers()
+    public ResponseEntity getComputers(Model model)
     {
         try{
-//            var resStr = new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(computerService.getAll());
             var computers = computerRepository.findAll();
-//            var computers2 = new ArrayList<>();
-//            for (ClientEntity client : computers) {
-//                computers2.add(new GetClient(client.getId(), client.getName(), client.getPhone_number()));
-//            }
+            model.addAttribute("computers", computers);
             return ResponseEntity.ok(computers);
         }
         catch (Exception e)
         {
             return internalServerError().body("Some problem with server!");
         }
+    }
+    @GetMapping("test/computer")
+    public String computer(Model model){
+        var computers = computerService.getComputer();
+        model.addAttribute("computers", computers);
+        return "computer";
     }
 //
     @PostMapping
@@ -81,15 +69,12 @@ public class ComputerController {
         }
     }
 
-    @DeleteMapping()
-    public ResponseEntity deleteComputer(@RequestParam int id)
-    {
+    @DeleteMapping
+    public ResponseEntity deleteComputer(@RequestBody DeleteComputerRequest id){
         try{
-            computerService.delete(id);
+            computerService.delete(id.getId());
             return ResponseEntity.ok().body("Все ок!");
-        }
-        catch (Exception e)
-        {
+        }catch (Exception e){
             return internalServerError().body("Some problem with server!");
         }
     }

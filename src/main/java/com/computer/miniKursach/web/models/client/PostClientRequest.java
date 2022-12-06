@@ -12,6 +12,8 @@ public class PostClientRequest {
     public String name;
     @JsonProperty("phone_number")
     public String phone_number;
+    @JsonProperty("price")
+    public Double price;
     @JsonProperty("basket_id")
     public int basketId;
 //    public BasketModelForPostClientRequest basket ;

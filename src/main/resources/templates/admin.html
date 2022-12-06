@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Панель админа</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="http://localhost:8080"><img src="/images/project_icon.png" width="30" height="30"
+                                                                  class="d-inline-block align-top"
+                                                                  alt="">MyCompukters</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="http://localhost:8080/computer">Системные блоки</a>
+                <a class="nav-item nav-link" href="http://localhost:8080/device">Аксессуары</a>
+                <a class="nav-item nav-link" href="http://localhost:8080/basket">Информация</a>
+            </ul>
+        </div>
+    </nav>
+</header>
+<main>
+
+    <marginingAllSides>
+
+        <div class="container marketing">
+            <div class="row">
+                <div class="col-lg-4">
+
+                    <h2>Системные блоки</h2>
+                    <p>Добавление системных блоков</p>
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Добавить »</button>
+                </div><!-- /.col-lg-4 -->
+                <div class="col-lg-4">
+
+                    <h2>Аксессуары</h2>
+                    <p>Добавление аксессуаров</p>
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#secondModal">Добавить »</button>
+                </div><!-- /.col-lg-4 -->
+                <div class="col-lg-4">
+                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
+                         xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
+                         preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#777"></rect>
+                        <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                    </svg>
+
+                    <h2>Корзина</h2>
+                    <p>Добавляйте в корзину понравившиеся девайсы!</p>
+                    <p><a class="btn btn-secondary" href="http://localhost:8080/basket">Посмотреть »</a></p>
+                </div><!-- /.col-lg-4 -->
+            </div>
+        </div>
+
+    </marginingAllSides>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Добавление системного блока</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="ram" class="col-form-label">Оперативная память:</label>
+                            <input type="text" class="form-control" id="ram" name="ram">
+                        </div>
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                <label for="hdd" class="col-form-label">Жесткий диск:</label>
+                                <input type="text" class="form-control" id="hdd" name="hdd">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                <label for="ssd" class="col-form-label">SSD:</label>
+                                <input type="text" class="form-control" id="ssd" name="ssd">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                <label for="matherboard" class="col-form-label">Материнская плата:</label>
+                                <input type="text" class="form-control" id="matherboard" name="matherboard">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                <label for="power_unit" class="col-form-label">Блок питания:</label>
+                                <input type="text" class="form-control" id="power_unit" name="power_unit">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                <label for="system_unit" class="col-form-label">Системный блок:</label>
+                                <input type="text" class="form-control" id="system_unit" name="system_unit">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                <label for="video_card" class="col-form-label">Видеокарта:</label>
+                                <input type="text" class="form-control" id="video_card" name="video_card">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                <label for="price" class="col-form-label">Цена:</label>
+                                <input type="text" class="form-control" id="price" name="price">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" th:attr="onclick=|createComputer()|">Отправить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="secondModal" tabindex="-1" aria-labelledby="secondModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="secondModalLabel">Добавление девайса</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="name_device" class="col-form-label">Имя девайса:</label>
+                            <input type="text" class="form-control" id="name_device" name="name_device">
+                        </div>
+                        <div class="mb-3">
+                            <label for="groupy" class="col-form-label">Тип девайса:</label>
+                            <input type="text" class="form-control" id="groupy" name="groupy">
+                        </div>
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                <label for="secondPrice" class="col-form-label">Цена:</label>
+                                <input type="text" class="form-control" id="secondPrice" name="secondPrice">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" th:attr="onclick=|createAccessory()|">Отправить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+</body>
+<script src="/static/js/bootstrap.bundle.js" th:src="@{/js/bootstrap.bundle.js}"></script>
+<script src="/static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script src="/static/js/jquery-3.2.1.slim.min.js" th:src="@{/js/jquery-3.2.1.slim.min.js}"></script>
+<script src="/static/js/add-computer/create_computer.js" th:src="@{/js/add-computer/create_computer.js}"></script>
+
+<script src="/static/js/buy_accessory/create_accessory.js" th:src="@{/js/buy_accessory/create_accessory.js}"></script>
+</html>

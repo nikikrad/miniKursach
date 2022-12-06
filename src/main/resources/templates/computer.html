@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
     <title>Системники</title>
     <link rel="stylesheet" href="/static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}" type="text/css"/>
 </head>
 <body>
 <header>
@@ -14,18 +16,85 @@
             <ul class="navbar-nav mr-auto">
                     <a class="nav-item nav-link active" href="http://localhost:8080/computer">Системные блоки</a>
                     <a class="nav-item nav-link" href="http://localhost:8080/device">Аксессуары</a>
-                    <a class="nav-item nav-link" href="http://localhost:8080/basket">Корзиночка</a>
+                    <a class="nav-item nav-link" href="http://localhost:8080/basket">Информация</a>
             </ul>
         </div>
     </nav>
 </header>
 <main>
+    <div  class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">HDD</th>
+                <th scope="col">SSD</th>
+                <th scope="col">Оперативная память</th>
+                <th scope="col">Материнская плата</th>
+                <th scope="col">Системный блок</th>
+                <th scope="col">Блок питания</th>
+                <th scope="col">Видеокарта</th>
+                <th scope="col">Цена</th>
+                <th scope="col">Купить</th>
 
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="computer : ${computers}" th:object="${computer}">
+                <th scope="row" th:text="*{id}"></th>
+                <td th:text="*{hdd}"></td>
+                <td th:text="*{ssd}"></td>
+                <td th:text="*{ram}"></td>
+                <td th:text="*{matherboard}"></td>
+                <td th:text="*{system_unit}"></td>
+                <td th:text="*{power_unit}"></td>
+                <td th:text="*{video_card}"></td>
+                <td th:text="*{price}"></td>
+                <td>
+                    <button class="btn btn-outline-success" data-bs-toggle="modal" th:attr="onclick=|setId(*{id},*{price})|"  data-bs-target="#exampleModal">Купить</button>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Заполнение формы</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="col-form-label">Ваше имя</label>
+                            <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                <label for="phone" class="col-form-label">Номер телефона:</label>
+                                <input type="text" class="form-control" id="phone" name="phone">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary" th:attr="onclick=|buyComputer()|">Отправить</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 <footer>
 
 </footer>
 
 </body>
-
+<script src="/static/js/bootstrap.bundle.js" th:src="@{/js/bootstrap.bundle.js}"></script>
+<script src="/static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script src="/static/js/jquery-3.2.1.slim.min.js" th:src="@{/js/jquery-3.2.1.slim.min.js}"></script>
+<script src="/static/js/add-computer/buy_computer.js" th:src="@{/js/add-computer/buy_computer.js}"></script>
 </html>
