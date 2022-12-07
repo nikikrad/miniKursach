@@ -28,6 +28,7 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Название</th>
+                <th scope="col">Тип девайса</th>
                 <th scope="col">Цена</th>
                 <th scope="col">Заказать</th>
 
@@ -37,6 +38,7 @@
             <tr th:each="accessories : ${accessories}" th:object="${accessories}">
                 <th scope="row" th:text="*{id}"></th>
                 <td th:text="*{name_device}"></td>
+                <td th:text="*{groupy}"></td>
                 <td th:text="*{price}"></td>
                 <td>
                     <button class="btn btn-outline-success" data-bs-toggle="modal" th:attr="onclick=|setId(*{id},*{price})|"  data-bs-target="#exampleModal">Заказать</button>

@@ -15,6 +15,14 @@ function buyAccessory(){
         id: ID
     });
 
+    xhrDelete.open("DELETE", '/api/devices', true);
+        xhrDelete.setRequestHeader('Content-Type', 'application/json');
+        xhrDelete.onload = function () {
+           if (xhrDelete.readyState == 4 && xhrDelete.status == "201") {
+                window.location.href = "";
+           }
+        };
+
 
     xhr.open("POST", '/api/client', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -24,13 +32,7 @@ function buyAccessory(){
             }
     };
 
-    xhrDelete.open("DELETE", '/api/devices', true);
-    xhrDelete.setRequestHeader('Content-Type', 'application/json');
-    xhrDelete.onload = function () {
-       if (xhrDelete.readyState == 4 && xhrDelete.status == "201") {
-            window.location.href = "";
-       }
-    };
+
 
     xhr.send(body);
     xhrDelete.send(bodyDelete);
